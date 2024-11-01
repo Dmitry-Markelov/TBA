@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public float moveSpeed = 200f;
+    private Rigidbody rb;
+    public float moveSpeed = 2000f;
     private bool flipRight = true;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
     
     // Start is called before the first frame update
@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
     void Move()
     {
         float move = Input.GetAxisRaw("Horizontal");
-        GetComponent<Rigidbody2D>().velocity = new Vector2(move * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        // GetComponent<Rigidbody>().velocity = new Vector3(move * moveSpeed, GetComponent<Rigidbody>().velocity.y, 0);
+        Vector2 newPos = rb.position + new Vector3(move * moveSpeed * Time.deltaTime, 0, 0);
+        rb.MovePosition(newPos);
 
         if (move > 0 && !flipRight) Flip();
         else if (move < 0 && flipRight) Flip();
