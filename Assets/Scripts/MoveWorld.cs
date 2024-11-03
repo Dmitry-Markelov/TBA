@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoveWorld : MonoBehaviour
 {
-    public float moveSpeed = -0.0001f;
+    private Engine engine;
+    public float moveSpeed;
     public bool isMove = false;
     Vector3 worldPosition = Vector3.zero;
     Transform world;
@@ -12,12 +13,15 @@ public class MoveWorld : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        engine = GameObject.FindWithTag("Transport").GetComponentInChildren<Engine>();
         world = GetComponent<Transform>();
     }
 
     void Start()
     {
         worldPosition = world.transform.position;
+    
+        moveSpeed = engine.GetSpeed();
     }
 
     // Update is called once per frame
@@ -25,12 +29,12 @@ public class MoveWorld : MonoBehaviour
     {
         if (isMove)
         {
-            worldPosition.x += moveSpeed * Time.deltaTime;
+            worldPosition.x -= moveSpeed * Time.deltaTime;
             world.transform.position = worldPosition;
         }
     }
 
-    public void ChangeMove()
+    public void ToggleMove()
     {
         isMove = !isMove;
     }
