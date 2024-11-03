@@ -22,7 +22,7 @@ public class Arm : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            moveWorld.ChangeMove();
+            moveWorld.ToggleMove();
         }
     }
 

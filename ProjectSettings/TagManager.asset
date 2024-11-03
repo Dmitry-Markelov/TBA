@@ -50,6 +50,9 @@ TagManager:
   - name: Car
     uniqueID: 1427366427
     locked: 0
+  - name: Inside car
+    uniqueID: 1710723137
+    locked: 0
   - name: Player
     uniqueID: 643178111
     locked: 0
