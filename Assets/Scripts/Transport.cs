@@ -40,7 +40,12 @@ public class Transport : MonoBehaviour
             currentState = TransportStatus.Damaged;
         } else {
             currentState = TransportStatus.Working;
-        } 
+        }
+
+        if (isMove)
+        {
+            engine.ReduceFuel();
+        }
     }
 
     public void ToggleMove()
