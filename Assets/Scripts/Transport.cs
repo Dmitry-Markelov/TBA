@@ -7,7 +7,8 @@ public enum TransportStatus
 {
     Working,
     Critical,
-    Damaged
+    Damaged,
+    NoFuel // Нужно учитывать, что топливо могло кончиться при поврежденном или критическом состоянии. И при заправке вернуть состояние. Или вообще убрать из состояния NoFuel
 }
 
 public class Transport : MonoBehaviour
@@ -30,16 +31,20 @@ public class Transport : MonoBehaviour
     {
         float currentHealth = healthSystem.GetHealth();
 
-        if (currentHealth == 0) {
+        if (engine.fuel == 0) {
+            currentState = TransportStatus.NoFuel;
+        } else if (currentHealth == 0) {
             currentState = TransportStatus.Critical;
         } else if (currentHealth <= 60) {
             currentState = TransportStatus.Damaged;
         } else {
             currentState = TransportStatus.Working;
         }
+
+        isMove = currentState == TransportStatus.NoFuel ? false : true; 
     }
 
-    void ChangeMove()
+    public void ToggleMove()
     {
         isMove = !isMove;
     }

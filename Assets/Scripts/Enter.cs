@@ -5,15 +5,15 @@ using UnityEngine;
 public class Enter : MonoBehaviour
 {
     private Transform playerPos;
-    public MoveWorld moveWorld;
-    bool isTransport = false;
+    private Transport transport;
+    bool inTransport = false;
     private bool isPlayerNearby = false;
     float transpPos = 5.75f;
     float groundPos = 3.9f; //переделать
     
     void Awake()
     {
-        moveWorld = FindObjectOfType<MoveWorld>();
+        transport = FindObjectOfType<Transport>();
     }
 
     // Start is called before the first frame update
@@ -27,13 +27,15 @@ public class Enter : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            if (!isTransport)
+            if (!inTransport)
             {
                 playerPos.position = new Vector3(playerPos.position.x, transpPos, playerPos.position.z);
-                isTransport = true;
-            } else if (!moveWorld.isMove) {
+                inTransport = true;
+            }
+            else if (!transport.isMove)
+            {
                 playerPos.position = new Vector3(playerPos.position.x, groundPos, playerPos.position.z);
-                isTransport = false;
+                inTransport = false;
             }
         }
     }
