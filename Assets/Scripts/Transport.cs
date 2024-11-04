@@ -33,6 +33,7 @@ public class Transport : MonoBehaviour
 
         if (engine.fuel == 0) {
             currentState = TransportStatus.NoFuel;
+            isMove = false;
         } else if (currentHealth == 0) {
             currentState = TransportStatus.Critical;
         } else if (currentHealth <= 60) {
@@ -41,7 +42,10 @@ public class Transport : MonoBehaviour
             currentState = TransportStatus.Working;
         }
 
-        isMove = currentState == TransportStatus.NoFuel ? false : true; 
+        if (isMove)
+        {
+            engine.ReduceFuel();
+        }
     }
 
     public void ToggleMove()
