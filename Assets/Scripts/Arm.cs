@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class Arm : MonoBehaviour
 {
+    private Transport transport;
     public MoveWorld moveWorld;
     private bool isPlayerNearby = false;
 
     // Start is called before the first frame update
     void Awake()
     {
+        transport = FindObjectOfType<Transport>();
         moveWorld = FindObjectOfType<MoveWorld>();
     }
     void Start()
     {
-        bool isMove = moveWorld.isMove;
+
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class Arm : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
-            moveWorld.ToggleMove();
+            transport.ToggleMove();
         }
     }
 
