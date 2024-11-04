@@ -7,6 +7,7 @@ public class Engine : MonoBehaviour
     private Transport transport;
     private float baseSpeed = 5f;
     public float fuel;
+    
     [SerializeField] public float currentSpeed;
 
     // Start is called before the first frame update
@@ -14,7 +15,7 @@ public class Engine : MonoBehaviour
     {
         transport = GetComponent<Transport>();
         currentSpeed = baseSpeed;
-        fuel = 10f;
+        fuel = 100f;
     }
 
     // Update is called once per frame
@@ -42,7 +43,7 @@ public class Engine : MonoBehaviour
     {
         return currentSpeed;
     }
-    
+
     public void AddFuel(float value)
     {
         fuel += value;
