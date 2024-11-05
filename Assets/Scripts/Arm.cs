@@ -5,15 +5,16 @@ using UnityEngine;
 public class Arm : MonoBehaviour
 {
     private Transport transport;
-    public MoveWorld moveWorld;
+    private Enter enter;
     private bool isPlayerNearby = false;
 
     // Start is called before the first frame update
     void Awake()
     {
         transport = FindObjectOfType<Transport>();
-        moveWorld = FindObjectOfType<MoveWorld>();
+        enter = FindObjectOfType<Enter>();
     }
+
     void Start()
     {
 
@@ -22,15 +23,20 @@ public class Arm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.E) && enter.inTransport)
         {
             transport.ToggleMove();
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("Collision detected");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Arm") || other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             isPlayerNearby = true;
         }
@@ -38,7 +44,7 @@ public class Arm : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Arm") || other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             isPlayerNearby = false;
         }

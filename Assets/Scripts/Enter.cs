@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Enter : MonoBehaviour
 {
+    public Transform parent;
+    private GameObject player;
     private Transform playerPos;
     private Transport transport;
-    bool inTransport = false;
+    public bool inTransport = false;
     private bool isPlayerNearby = false;
     float transpPos = 5.75f;
     float groundPos = 3.9f; //переделать
@@ -19,7 +21,8 @@ public class Enter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerPos = player.transform;
     }
 
     // Update is called once per frame
@@ -31,18 +34,20 @@ public class Enter : MonoBehaviour
             {
                 playerPos.position = new Vector3(playerPos.position.x, transpPos, playerPos.position.z);
                 inTransport = true;
+                player.transform.SetParent(transport.transform);
             }
             else if (!transport.isMove)
             {
                 playerPos.position = new Vector3(playerPos.position.x, groundPos, playerPos.position.z);
                 inTransport = false;
+                player.transform.SetParent(parent);
             }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Entrance")) //переделать
+        if (other.CompareTag("Player")) //переделать
         {
             isPlayerNearby = true;
         }
@@ -50,7 +55,7 @@ public class Enter : MonoBehaviour
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Entrance")) //переделать
+        if (other.CompareTag("Player")) //переделать
         {
             isPlayerNearby = false;
         }

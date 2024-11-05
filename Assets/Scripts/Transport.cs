@@ -13,17 +13,28 @@ public enum TransportStatus
 
 public class Transport : MonoBehaviour
 {
+    private Rigidbody carRB;
     public TransportStatus currentState = TransportStatus.Working;
     private HealthSystem healthSystem;
     private Engine engine;
 
+    public float baseSpeed = 5f;
+    [SerializeField] public float currentSpeed;
+    private float maxSpeed = 10f;
+
     public bool isMove = false;
     
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         engine = GetComponent<Engine>();
+        carRB = GetComponent<Rigidbody>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        currentSpeed = baseSpeed;
     }
 
     // Update is called once per frame
@@ -45,6 +56,22 @@ public class Transport : MonoBehaviour
         if (isMove)
         {
             engine.ReduceFuel();
+        }
+
+        if (isMove && currentState != TransportStatus.NoFuel)
+        {
+            Move();
+        }
+    }
+
+    private void Move()
+    {
+        float velocity = Vector3.Dot(transform.right, carRB.velocity);
+
+        if (velocity < maxSpeed) 
+        {
+            Vector3 newPos = transform.right * currentSpeed;
+            carRB.AddForce(newPos, (ForceMode)ForceMode2D.Force);
         }
     }
 

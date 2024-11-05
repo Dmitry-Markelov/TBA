@@ -5,16 +5,13 @@ using UnityEngine;
 public class Engine : MonoBehaviour
 {
     private Transport transport;
-    private float baseSpeed = 5f;
     public float fuel;
     private float fuelRate = 0.1f;
-    [SerializeField] public float currentSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         transport = GetComponent<Transport>();
-        currentSpeed = baseSpeed;
         fuel = 100f;
     }
 
@@ -28,13 +25,13 @@ public class Engine : MonoBehaviour
         switch (transport.currentState)
         {
             case TransportStatus.Damaged:
-                currentSpeed = baseSpeed * 0.75f;
+                transport.currentSpeed = transport.baseSpeed * 0.75f;
                 break;
             case TransportStatus.Critical:
-                currentSpeed = 0;
+                transport.currentSpeed = 0;
                 break;
             default:
-                currentSpeed = baseSpeed;
+                transport.currentSpeed = transport.baseSpeed;
                 break;
         }
         if (Input.GetKeyDown(KeyCode.F)) // временная заправка
@@ -42,12 +39,7 @@ public class Engine : MonoBehaviour
             AddFuel(10);
         }
     }
-
-    public float GetSpeed()
-    {
-        return currentSpeed;
-    }
-
+    
     public void AddFuel(float value)
     {
         fuel += value;
