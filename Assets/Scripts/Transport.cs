@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.LowLevel;
 
 public enum TransportStatus
 {
@@ -13,47 +13,68 @@ public enum TransportStatus
 
 public class Transport : MonoBehaviour
 {
-    private Rigidbody carRigidBody;
+    private Rigidbody transportRigidBody;
     private HealthSystem healthSystem;
     private Engine engine;
 
-    [SerializeField] public float baseAcceleration = 5f;
-    [SerializeField] public float baseMaxSpeed = 10f;
     [SerializeField] public float acceleration;
     [SerializeField] public float maxSpeed;
 
     public bool isMoving { get; private set; } = false;
-    public TransportStatus CurrentState = TransportStatus.Working;
+    public float baseAcceleration {get; private set; }  = 5f;
+    public float baseMaxSpeed {get; private set; } = 10f;
     private float brakeForce = 5f;
+    public TransportStatus CurrentState { get; private set; } = TransportStatus.Working;
     
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
         engine = GetComponent<Engine>();
-        carRigidBody = GetComponent<Rigidbody>();
+        transportRigidBody = GetComponent<Rigidbody>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         acceleration = baseAcceleration;
         maxSpeed = baseMaxSpeed;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        UpdateTransportState();
+
+        if (isMoving && CurrentState != TransportStatus.NoFuel)
+        {
+            Move();
+        }
+        else if (transportRigidBody.velocity.x != 0 && !isMoving)
+        {
+            Brake();
+        }
+
+        HandleDebugInput(); // переделать под InputSystem
+    }
+
+    private void UpdateTransportState()
     {
         float currentHealth = healthSystem.GetHealth();
 
-        if (engine.fuel == 0) {
+        if (engine.fuel == 0)
+        {
             CurrentState = TransportStatus.NoFuel;
             isMoving = false;
-        } else if (currentHealth == 0) {
+        }
+        else if (currentHealth == 0)
+        {
             CurrentState = TransportStatus.Critical;
             isMoving = false;
-        } else if (currentHealth <= 60) {
+        }
+        else if (currentHealth <= 60)
+        {
             CurrentState = TransportStatus.Damaged;
-        } else {
+        }
+        else
+        {
             CurrentState = TransportStatus.Working;
         }
 
@@ -61,34 +82,17 @@ public class Transport : MonoBehaviour
         {
             engine.ReduceFuel();
         }
-
-        if (isMoving && CurrentState != TransportStatus.NoFuel)
-        {
-            Move();
-        }
-        else if (carRigidBody.velocity.x != 0 && !isMoving)
-        {
-            Brake();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
-        {
-            Repair(10);
-        }
-        if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
-        {
-            TakeDamage(10);
-        }
     }
 
     private void Move()
     {
-        if (carRigidBody.velocity.x < maxSpeed)
+        if (transportRigidBody.velocity.x < maxSpeed)
         {
-            Vector3 newPos = transform.right * acceleration;
-            carRigidBody.AddForce(newPos, (ForceMode)ForceMode2D.Force);
+            Vector3 newForce = transform.right * acceleration;
+            transportRigidBody.AddForce(newForce, ForceMode.Force);
         }
-        if (carRigidBody.velocity.x > maxSpeed)
+
+        if (transportRigidBody.velocity.x > maxSpeed)
         {
             Brake();
         }
@@ -96,12 +100,12 @@ public class Transport : MonoBehaviour
 
     private void Brake()
     {
-        if (carRigidBody.velocity.x > 0 )
+        if (transportRigidBody.velocity.x > 0 )
         {
-            Vector3 newPos = -transform.right * brakeForce;
-            carRigidBody.AddForce(newPos, (ForceMode)ForceMode2D.Force);
+            Vector3 brakeForceVector = -transform.right * brakeForce;
+            transportRigidBody.AddForce(brakeForceVector, ForceMode.Force);
         }
-        else carRigidBody.velocity = Vector3.zero;
+        else transportRigidBody.velocity = Vector3.zero;
     }
 
     public void ToggleMove()
@@ -122,5 +126,17 @@ public class Transport : MonoBehaviour
     public void ToggleEngine()
     {
 
+    }
+
+    private void HandleDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
+        {
+            Repair(10);
+        }
+        if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
+        {
+            TakeDamage(10);
+        }
     }
 }

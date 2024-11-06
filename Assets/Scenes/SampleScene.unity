@@ -508,7 +508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
-  inTransport: 0
 --- !u!65 &121911331
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -945,11 +944,11 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.91, y: -0.34000015, z: -20}
+  m_LocalPosition: {x: 3.91, y: 3.56, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 948020754}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -1407,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99107aab9811b24fa49a87ecfbdd3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 15
 --- !u!212 &948020753
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1472,8 +1471,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 519420032}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &948020755
@@ -2043,10 +2041,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009a7fce7b591604194ba2a64d66b74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
-  baseSpeed: 5
-  currentSpeed: 0
-  isMove: 0
+  acceleration: 0
+  maxSpeed: 0
 --- !u!212 &1429492232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2163,8 +2159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d21eb38d095231b4389ecbdba97a8593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
 --- !u!54 &1429492237
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2307,9 +2301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab3eb48576a96840a4238c192946ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: {fileID: 1072703063}
-  State: {fileID: 284229779}
-  Fuel: {fileID: 1717601067}
+  hpText: {fileID: 1072703063}
+  stateText: {fileID: 284229779}
+  fuelText: {fileID: 1717601067}
 --- !u!1 &1573642507
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,6 +3187,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 619394802}
+  - {fileID: 519420032}
   - {fileID: 948020754}
   - {fileID: 1429492233}
   - {fileID: 1536050874}

@@ -1,34 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    public float maxHealth = 100f;
-    public float currentHealth;
+    public float maxHealth { get; private set; } = 100f;
+    public float currentHealth { get; private set; }
 
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;    
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void TakeDamage(float damage)
     {
+        if (damage < 0)
+        {
+            Debug.LogWarning("Wrong damage!");
+            return;
+        }
+
         currentHealth -= damage;
-        if (currentHealth <= 0) currentHealth = 0;
+        currentHealth = math.clamp(currentHealth, 0, maxHealth);
     }
 
     public void Rapair(float value)
     {
+        if (value < 0)
+        {
+            Debug.LogWarning("Wrong repair value!");
+            return;
+        }
+        
         currentHealth += value;
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        currentHealth = math.clamp(currentHealth, 0, maxHealth);
     }
 
     private void Critical()

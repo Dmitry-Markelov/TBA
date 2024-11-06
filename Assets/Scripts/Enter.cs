@@ -5,40 +5,45 @@ using UnityEngine;
 public class Enter : MonoBehaviour
 {
     public Transform parent;
-    private GameObject player;
-    private Transform playerPos;
+    private Transform playerTransform;
     private Transport transport;
-    public bool inTransport = false;
+
+    private GameObject player;
+    public bool inTransport { get; private set; } = false;
     private bool isPlayerNearby = false;
-    float transpPos = 5.75f;
-    float groundPos = 3.9f; //переделать
+
+    private float transportPosition = 5.75f;
+    private float groundPosition = 3.9f; //переделать
     
     void Awake()
     {
         transport = FindObjectOfType<Transport>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerPos = player.transform;
+        playerTransform = player.transform;
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        HandleEnter();
+    }
+
+    private void HandleEnter()
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E))
         {
             if (!inTransport)
             {
-                playerPos.position = new Vector3(playerPos.position.x, transpPos, playerPos.position.z);
+                playerTransform.position = new Vector3(playerTransform.position.x, transportPosition, playerTransform.position.z);
                 inTransport = true;
                 player.transform.SetParent(transport.transform);
             }
-            else if (!transport.isMove)
+            else if (!transport.isMoving)
             {
-                playerPos.position = new Vector3(playerPos.position.x, groundPos, playerPos.position.z);
+                playerTransform.position = new Vector3(playerTransform.position.x, groundPosition, playerTransform.position.z);
                 inTransport = false;
                 player.transform.SetParent(parent);
             }

@@ -5,23 +5,35 @@ using UnityEngine;
 public class Engine : MonoBehaviour
 {
     private Transport transport;
-    public float fuel;
+
+    [SerializeField] public float fuel;
     private float fuelRate = 0.1f;
 
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         transport = GetComponent<Transport>();
+    }
+
+    void Start()
+    {
         fuel = 100f;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        HandleTransportStatus();
+
         if (transport.CurrentState == TransportStatus.Damaged || transport.CurrentState == TransportStatus.Critical)
         {
-            // FuelLeak();
+            FuelLeak();
         }
+        
+        HandleDebugInput(); // переделать под InputSystem
+    }
+
+    private void HandleTransportStatus()
+    {
         switch (transport.CurrentState)
         {
             case TransportStatus.Damaged:
@@ -36,14 +48,16 @@ public class Engine : MonoBehaviour
                 transport.acceleration = transport.baseAcceleration;
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.F)) // временная заправка
-        {
-            AddFuel(10);
-        }
     }
     
     public void AddFuel(float value)
     {
+        if (value < 0)
+        {
+            Debug.LogWarning("Wrong fuel value!");
+            return;
+        }
+
         fuel += value;
     }
 
@@ -54,6 +68,7 @@ public class Engine : MonoBehaviour
             fuel -= fuelRate;
         }
         else fuel = 0;
+
         Debug.Log(fuel);
     }
 
@@ -64,7 +79,15 @@ public class Engine : MonoBehaviour
             fuel -= 0.01f; // уменьшение топлива (типо вытекает при повреждении)
         }
         else fuel = 0;
+
         Debug.Log(fuel);
     }
 
+    private void HandleDebugInput()
+    {
+        if (Input.GetKeyDown(KeyCode.F)) // временная заправка
+        {
+            AddFuel(10);
+        }
+    }
 }

@@ -9,9 +9,9 @@ public class HUD : MonoBehaviour
     private HealthSystem healthSystem;
     private Engine engine;
 
-    public Text HP;
-    public Text State;
-    public Text Fuel;
+    public Text hpText;
+    public Text stateText;
+    public Text fuelText;
 
     void Awake()
     {
@@ -20,17 +20,15 @@ public class HUD : MonoBehaviour
         engine = FindObjectOfType<Engine>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        HP.text = "HP: " + healthSystem.currentHealth;
-        State.text = "State: " + transport.currentState;
-        Fuel.text = "Fuel: " + Mathf.Floor(engine.fuel);
+        UpdateHUD();
+    }
+
+    private void UpdateHUD()
+    {
+        hpText.text = "HP: " + healthSystem.currentHealth;
+        stateText.text = "State: " + transport.CurrentState;
+        fuelText.text = "Fuel: " + Mathf.Floor(engine.fuel);
     }
 }

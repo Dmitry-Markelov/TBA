@@ -5,21 +5,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Transport transport;
-    public float moveSpeed = 2000f;
+
+    [SerializeField] public float moveSpeed = 15f;
     private bool flipRight = true;
 
     void Awake()
     {
         transport = FindObjectOfType<Transport>();
     }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Move();
@@ -27,19 +21,18 @@ public class Player : MonoBehaviour
     
     void Move()
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        float moveInput = Input.GetAxisRaw("Horizontal");
  
-        transform.position = transform.position + new Vector3(move * moveSpeed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(moveInput * moveSpeed * Time.deltaTime, 0f, 0f);
 
-        if (move > 0 && !flipRight) Flip();
-        else if (move < 0 && flipRight) Flip();
+        if ((moveInput > 0 && !flipRight) || (moveInput < 0 && flipRight)) Flip();
     }
 
     private void Flip()
     {
         flipRight = !flipRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
