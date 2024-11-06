@@ -18,20 +18,22 @@ public class Engine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transport.currentState == TransportStatus.Damaged || transport.currentState == TransportStatus.Critical)
+        if (transport.CurrentState == TransportStatus.Damaged || transport.CurrentState == TransportStatus.Critical)
         {
-            FuelLeak();
+            // FuelLeak();
         }
-        switch (transport.currentState)
+        switch (transport.CurrentState)
         {
             case TransportStatus.Damaged:
-                transport.currentSpeed = transport.baseSpeed * 0.5f;
+                transport.acceleration = transport.baseAcceleration * 0.5f;
+                transport.maxSpeed = transport.baseMaxSpeed * 0.5f;
                 break;
             case TransportStatus.Critical:
-                transport.currentSpeed = 0;
+                transport.acceleration = 0;
                 break;
             default:
-                transport.currentSpeed = transport.baseSpeed;
+                transport.maxSpeed = transport.baseMaxSpeed;
+                transport.acceleration = transport.baseAcceleration;
                 break;
         }
         if (Input.GetKeyDown(KeyCode.F)) // временная заправка
