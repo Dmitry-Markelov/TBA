@@ -18,14 +18,14 @@ public class Engine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transport.currentState == TransportStatus.Damaged)
+        if (transport.currentState == TransportStatus.Damaged || transport.currentState == TransportStatus.Critical)
         {
             FuelLeak();
         }
         switch (transport.currentState)
         {
             case TransportStatus.Damaged:
-                transport.currentSpeed = transport.baseSpeed * 0.75f;
+                transport.currentSpeed = transport.baseSpeed * 0.5f;
                 break;
             case TransportStatus.Critical:
                 transport.currentSpeed = 0;

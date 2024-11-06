@@ -22,7 +22,7 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth < maxHealth) Critical();
+        if (currentHealth <= 0) currentHealth = 0;
     }
 
     public void Rapair(float value)

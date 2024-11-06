@@ -31,6 +31,6 @@ public class HUD : MonoBehaviour
     {
         HP.text = "HP: " + healthSystem.currentHealth;
         State.text = "State: " + transport.currentState;
-        Fuel.text = "Fuel: " + engine.fuel;
+        Fuel.text = "Fuel: " + Mathf.Floor(engine.fuel);
     }
 }

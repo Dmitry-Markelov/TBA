@@ -47,6 +47,7 @@ public class Transport : MonoBehaviour
             isMove = false;
         } else if (currentHealth == 0) {
             currentState = TransportStatus.Critical;
+            isMove = false;
         } else if (currentHealth <= 60) {
             currentState = TransportStatus.Damaged;
         } else {
@@ -61,6 +62,15 @@ public class Transport : MonoBehaviour
         if (isMove && currentState != TransportStatus.NoFuel)
         {
             Move();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
+        {
+            Repair(10);
+        }
+        if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
+        {
+            TakeDamage(10);
         }
     }
 
