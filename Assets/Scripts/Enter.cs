@@ -12,8 +12,8 @@ public class Enter : MonoBehaviour
     public bool inTransport { get; private set; } = false;
     private bool isPlayerNearby = false;
 
-    private float transportPosition = 5.75f;
-    private float groundPosition = 3.9f; //переделать
+    private float transportPosition = 4.43f;
+    private float groundPosition = 2.4f; //переделать
     
     void Awake()
     {

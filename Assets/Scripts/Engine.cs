@@ -9,7 +9,6 @@ public class Engine : MonoBehaviour
     [SerializeField] public float fuel;
     private float fuelRate = 0.1f;
 
-
     void Awake()
     {
         transport = GetComponent<Transport>();
