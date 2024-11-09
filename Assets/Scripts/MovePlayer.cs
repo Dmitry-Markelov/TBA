@@ -13,9 +13,10 @@ public class Player : MonoBehaviour
     private float velocity = 0f;
     private float jumpForce = 10f;
     private float groundPosition;
+    private float distToGround = 1.7f;
 
     private bool flipRight = true;
-    private bool inGround = true;
+    private bool isGrounded = true;
     
     void Awake()
     {
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
+        GroundCheck();
     }
     
     void MovePlayer()
@@ -43,12 +45,12 @@ public class Player : MonoBehaviour
         {
             velocity = 0;
         }
-        else if(Input.GetKeyDown(KeyCode.Space) && inGround)
+        else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity = jumpForce;
         }
 
-        if (!inGround && !enter.inTransport) // add gravity
+        if (!isGrounded && !enter.inTransport) // add gravity
         {
             velocity += gravity * gravityScale * Time.deltaTime;
         }
@@ -59,24 +61,22 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, groundPosition, transform.position.z);
             velocity = 0;
-            inGround = true;
+            isGrounded = true;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private bool GroundCheck()
     {
-        if (other.tag == "Ground")
+        if (Physics.Raycast(transform.position, Vector2.down, distToGround + 0.1f))
         {
-            inGround = true;
+            isGrounded = true;
+            return true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Ground")
+        else
         {
-            inGround = false;
-        }
+            isGrounded = false;
+            return false;
+        }       
     }
 
     private void Flip()
