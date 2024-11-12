@@ -32,30 +32,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
-        GroundCheck();
-    }
-    
-    void MovePlayer()
-    {
-        float moveInput = Input.GetAxisRaw("Horizontal");
-
-        if ((moveInput > 0 && !flipRight) || (moveInput < 0 && flipRight)) Flip();
-
-        if (enter.inTransport)
-        {
-            velocity = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            velocity = jumpForce;
-        }
-
+        JumpPlayer();
+        
         if (!isGrounded && !enter.inTransport) // add gravity
         {
             velocity += gravity * gravityScale * Time.deltaTime;
         }
 
-        transform.Translate(new Vector3(moveInput * moveSpeed, velocity, 0f) * Time.deltaTime);
 
         if (transform.position.y < groundPosition && !enter.inTransport) // reset Y
         {
@@ -63,6 +46,29 @@ public class Player : MonoBehaviour
             velocity = 0;
             isGrounded = true;
         }
+
+        GroundCheck();
+    }
+
+    private void JumpPlayer()
+    {
+        if (enter.inTransport)
+        {
+            velocity = 0;
+        }
+        else if (Input.GetKey(KeyCode.Space) && isGrounded)
+        {
+            velocity = jumpForce;
+        }
+    }
+
+    private void MovePlayer()
+    {
+        float moveInput = Input.GetAxisRaw("Horizontal");
+
+        if ((moveInput > 0 && !flipRight) || (moveInput < 0 && flipRight)) Flip();
+
+        transform.Translate(new Vector3(moveInput * moveSpeed, velocity, 0f) * Time.deltaTime); 
     }
 
     private bool GroundCheck()
