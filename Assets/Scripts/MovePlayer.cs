@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private float jumpForce = 10f;
     private float groundPosition;
     private float distToGround = 1.7f;
+    private float currentHealth;
 
     private bool flipRight = true;
     private bool isGrounded = true;
@@ -27,10 +29,18 @@ public class Player : MonoBehaviour
     private void Start()
     {
         groundPosition = transform.position.y;
+
+        currentHealth = 100f;
     }
 
     void FixedUpdate()
     {
+        Debug.Log(math.floor(currentHealth));
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Game over!");
+        }
+
         MovePlayer();
         JumpPlayer();
         
@@ -69,6 +79,30 @@ public class Player : MonoBehaviour
         if ((moveInput > 0 && !flipRight) || (moveInput < 0 && flipRight)) Flip();
 
         transform.Translate(new Vector3(moveInput * moveSpeed, velocity, 0f) * Time.deltaTime); 
+    }
+
+    public void GetHealth(float value)
+    {
+        if (value < 0)
+        {
+            Debug.Log("Wrong value!");
+            return;
+        }
+
+        currentHealth += value;
+        currentHealth = math.clamp(currentHealth, 0, 100);
+    }
+
+    public void GetDamage(float value)
+    {
+        if (value < 0)
+        {
+            Debug.Log("Wrong value!");
+            return;
+        }
+
+        currentHealth -= value;
+        currentHealth = math.clamp(currentHealth, 0, 100);
     }
 
     private bool GroundCheck()

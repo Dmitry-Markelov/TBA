@@ -8,6 +8,7 @@ TagManager:
   - Entrance
   - Arm
   - Ground
+  - Gaz
   layers:
   - Default
   - TransparentFX
@@ -56,4 +57,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 643178111
+    locked: 0
+  - name: Gaz
+    uniqueID: 1946810677
     locked: 0
