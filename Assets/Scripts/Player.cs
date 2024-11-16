@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     private float jumpForce = 10f;
     private float groundPosition;
     private float distToGround = 1.7f;
-    private float currentHealth;
+    public float currentHealth;
 
     private bool flipRight = true;
     private bool isGrounded = true;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
         Debug.Log(math.floor(currentHealth));
         if (currentHealth <= 0)
         {
-            Debug.Log("Game over!");
+            DiePlayer();
         }
 
         MovePlayer();
@@ -125,5 +126,17 @@ public class Player : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    private void DiePlayer()
+    {
+        Debug.Log("Player died!");
+        RestartGame();
+        
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

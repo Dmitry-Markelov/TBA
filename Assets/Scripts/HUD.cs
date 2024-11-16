@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 public class HUD : MonoBehaviour
 {
     private Transport transport;
     private HealthSystem healthSystem;
     private Engine engine;
+    private Player player;
 
-    public Text hpText;
+    public Text pHpText;
+    public Text tHpText;
     public Text stateText;
     public Text fuelText;
 
@@ -18,6 +21,7 @@ public class HUD : MonoBehaviour
         transport = FindObjectOfType<Transport>();
         healthSystem = FindObjectOfType<HealthSystem>();
         engine = FindObjectOfType<Engine>();
+        player = FindObjectOfType<Player>();
     }
 
     void Update()
@@ -27,8 +31,9 @@ public class HUD : MonoBehaviour
 
     private void UpdateHUD()
     {
-        hpText.text = "HP: " + healthSystem.currentHealth;
+        pHpText.text = "HP: " + math.floor(player.currentHealth);
+        tHpText.text = "HP: " + healthSystem.currentHealth;
         stateText.text = "State: " + transport.CurrentState;
-        fuelText.text = "Fuel: " + Mathf.Floor(engine.fuel);
+        fuelText.text = "Fuel: " + math.floor(engine.fuel);
     }
 }
