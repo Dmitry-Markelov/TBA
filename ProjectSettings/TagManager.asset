@@ -9,6 +9,7 @@ TagManager:
   - Arm
   - Ground
   - Gaz
+  - Loot
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 922028713
+    locked: 0
+  - name: LootObjects
+    uniqueID: 3699521679
     locked: 0
   - name: Car
     uniqueID: 1427366427

@@ -8,7 +8,7 @@ public enum TransportStatus
     Working,
     Critical,
     Damaged,
-    NoFuel // Нужно учитывать, что топливо могло кончиться при поврежденном или критическом состоянии. И при заправке вернуть состояние. Или вообще убрать из состояния NoFuel
+    NoFuel
 }
 
 public class Transport : MonoBehaviour

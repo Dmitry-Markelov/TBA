@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(math.floor(currentHealth));
+        // Debug.Log(math.floor(currentHealth));
         if (currentHealth <= 0)
         {
             DiePlayer();

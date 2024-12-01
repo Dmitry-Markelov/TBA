@@ -67,8 +67,6 @@ public class Engine : MonoBehaviour
             fuel -= fuelRate;
         }
         else fuel = 0;
-
-        Debug.Log(fuel);
     }
 
     public void FuelLeak()
@@ -78,8 +76,6 @@ public class Engine : MonoBehaviour
             fuel -= 0.01f; // уменьшение топлива (типо вытекает при повреждении)
         }
         else fuel = 0;
-
-        Debug.Log(fuel);
     }
 
     private void HandleDebugInput()
