@@ -113,9 +113,9 @@ public class Transport : MonoBehaviour
         isMoving = !isMoving;
     }
 
-    public void TakeDamage(float damage)
+    public void GetDamage(float damage)
     {
-        healthSystem.TakeDamage(damage);
+        healthSystem.GetDamage(damage);
     }
 
     public void Repair(float value)
@@ -136,7 +136,7 @@ public class Transport : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
         {
-            TakeDamage(10);
+            GetDamage(10);
         }
     }
 }

@@ -32,7 +32,7 @@ public class HUD : MonoBehaviour
     private void UpdateHUD()
     {
         pHpText.text = "HP: " + math.floor(player.currentHealth);
-        tHpText.text = "HP: " + healthSystem.currentHealth;
+        tHpText.text = "HP: " + math.floor(healthSystem.currentHealth);
         stateText.text = "State: " + transport.CurrentState;
         fuelText.text = "Fuel: " + math.floor(engine.fuel);
     }

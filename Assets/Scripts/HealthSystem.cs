@@ -13,7 +13,7 @@ public class HealthSystem : MonoBehaviour
         currentHealth = maxHealth;    
     }
 
-    public void TakeDamage(float damage)
+    public void GetDamage(float damage)
     {
         if (damage < 0)
         {

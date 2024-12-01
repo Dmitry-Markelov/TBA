@@ -1,25 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ZoneController : MonoBehaviour
 {
     private Player player;
+    private Transport transport;
     [SerializeField] float zoneDamage = 0.1f;
     [SerializeField] float folowSpeed = 2f;
-    private bool inZone = false;
+    private bool playerInZone = false;
+    private bool transportInZone = false;
+    private float length;
 
 
     void Start()
     {
         player = FindObjectOfType<Player>();
+        transport = FindObjectOfType<Transport>();
+
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     void FixedUpdate()
     {
-        if (inZone)
+        Debug.Log(length);
+        if (playerInZone)
         {
             player.GetDamage(zoneDamage);
+        }
+
+        if (transportInZone)
+        {
+            transport.GetDamage(zoneDamage);
+        }
+
+        if (player.transform.position.x < transform.position.x)
+        {
+            player.GetDamage(zoneDamage * 10);
         }
 
         if (player.transform.position.x - transform.position.x >= 100)
@@ -33,7 +51,12 @@ public class ZoneController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            inZone = true;
+            playerInZone = true;
+        }
+
+        if (other.tag == "Transport")
+        {
+            transportInZone = true;
         }
     }
 
@@ -41,7 +64,12 @@ public class ZoneController : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            inZone = false;
+            playerInZone = false;
+        }
+
+        if (other.tag == "Transport")
+        {
+            transportInZone= false;
         }
     }
 }
