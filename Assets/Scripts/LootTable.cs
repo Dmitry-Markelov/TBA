@@ -6,13 +6,14 @@ public class LootItem
 {
     public string itemName;
     public int chance;
+    public int id;
 }
 
 public class LootTable : MonoBehaviour
 {
     public List<LootItem> lootItems = new List<LootItem>();
 
-    public string GetRandomLoot()
+    public LootItem GetRandomLoot()
     {
         int totalChance = 0;
 
@@ -29,7 +30,7 @@ public class LootTable : MonoBehaviour
             currentChance += item.chance;
             if (randomValue < currentChance)
             {
-                return item.itemName;
+                return item;
             }
         }
 

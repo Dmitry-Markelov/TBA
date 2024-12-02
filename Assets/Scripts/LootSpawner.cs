@@ -22,8 +22,8 @@ public class LootSpawner : MonoBehaviour
 
     void SpawnLoot()
     {
-        Vector3 spawnPosition = player.position + new Vector3(Random.Range(20f, 50f), 0, 0);
         int randomIndex = Random.Range(0, lootPrefabs.Length);
+        Vector3 spawnPosition = new Vector3(player.position.x + Random.Range(20f, 50f), 5.2f, 0);
         Instantiate(lootPrefabs[randomIndex], spawnPosition, Quaternion.identity);
     }
 }

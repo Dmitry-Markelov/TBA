@@ -24,7 +24,6 @@ public class ZoneController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(length);
         if (playerInZone)
         {
             player.GetDamage(zoneDamage);
@@ -40,9 +39,9 @@ public class ZoneController : MonoBehaviour
             player.GetDamage(zoneDamage * 10);
         }
 
-        if (player.transform.position.x - transform.position.x >= 100)
+        if (player.transform.position.x - transform.position.x >= 250)
         {
-            transform.position = new Vector3(player.transform.position.x - 40, transform.position.y, transform.position.z);
+            transform.position = new Vector3(player.transform.position.x - 100, transform.position.y, transform.position.z);
         }
         transform.position += new Vector3(folowSpeed * Time.deltaTime, 0f, 0f);
     }

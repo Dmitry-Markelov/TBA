@@ -123,6 +123,7 @@ MonoBehaviour:
   lootItems:
   - itemName: Diamonds
     chance: 50
+    id: 4
 --- !u!114 &-7182364943612053935
 MonoBehaviour:
   m_ObjectHideFlags: 0

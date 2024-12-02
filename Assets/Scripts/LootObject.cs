@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class LootObject : MonoBehaviour
 {
+    private Inventory inventory;
+
     public enum LootType { Cave, AbandonedHouse, Trader }
     public LootType lootType;
+
+    private void Awake()
+    {
+        inventory = FindAnyObjectByType<Inventory>();
+    }
 
     public void Interact()
     {
@@ -12,8 +19,17 @@ public class LootObject : MonoBehaviour
             LootTable lootTable = GetComponent<LootTable>();
             if (lootTable != null)
             {
-                string loot = lootTable.GetRandomLoot();
-                Debug.Log("Вы получили: " + loot);
+                LootItem loot = lootTable.GetRandomLoot();
+
+                bool isAdded = inventory.AddItemById(loot.id, 1);
+                if (isAdded)
+                {
+                    Debug.Log("Вы получили: " + loot.itemName);
+                }
+                else
+                {
+                    Debug.Log("Не удалось добавить предмет.");
+                }
             }
             else
             {

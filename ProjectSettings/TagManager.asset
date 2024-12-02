@@ -65,3 +65,6 @@ TagManager:
   - name: Gaz
     uniqueID: 1946810677
     locked: 0
+  - name: HUD
+    uniqueID: 228124877
+    locked: 0

@@ -123,10 +123,13 @@ MonoBehaviour:
   lootItems:
   - itemName: RepairParts
     chance: 50
+    id: 2
   - itemName: Fuel
     chance: 50
+    id: 1
   - itemName: UpgrateParts
     chance: 50
+    id: 3
 --- !u!114 &-7182364943612053935
 MonoBehaviour:
   m_ObjectHideFlags: 0
