@@ -17,13 +17,8 @@ public class Transport : MonoBehaviour
     private HealthSystem healthSystem;
     private Engine engine;
 
-    [SerializeField] public float acceleration;
-    [SerializeField] public float maxSpeed;
-
     public bool isMoving { get; private set; } = false;
-    public float baseAcceleration {get; private set; }  = 5f;
-    public float baseMaxSpeed {get; private set; } = 10f;
-    private float brakeForce = 5f;
+
     public TransportStatus CurrentState { get; private set; } = TransportStatus.Working;
     
     private void Awake()
@@ -31,12 +26,6 @@ public class Transport : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         engine = GetComponent<Engine>();
         transportRigidBody = GetComponent<Rigidbody>();
-    }
-
-    void Start()
-    {
-        acceleration = baseAcceleration;
-        maxSpeed = baseMaxSpeed;
     }
 
     void FixedUpdate()
@@ -86,13 +75,13 @@ public class Transport : MonoBehaviour
 
     private void Move()
     {
-        if (transportRigidBody.velocity.x < maxSpeed)
+        if (transportRigidBody.velocity.x < engine.speed.GetCurrentValue())
         {
-            Vector3 newForce = transform.right * acceleration;
+            Vector3 newForce = transform.right * engine.acceleration;
             transportRigidBody.AddForce(newForce, ForceMode.Force);
         }
 
-        if (transportRigidBody.velocity.x > maxSpeed)
+        if (transportRigidBody.velocity.x > engine.speed.GetCurrentValue())
         {
             Brake();
         }
@@ -102,7 +91,7 @@ public class Transport : MonoBehaviour
     {
         if (transportRigidBody.velocity.x > 0 )
         {
-            Vector3 brakeForceVector = -transform.right * brakeForce;
+            Vector3 brakeForceVector = -transform.right * engine.brakeForce;
             transportRigidBody.AddForce(brakeForceVector, ForceMode.Force);
         }
         else transportRigidBody.velocity = Vector3.zero;

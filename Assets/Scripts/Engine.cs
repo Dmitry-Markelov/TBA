@@ -1,13 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class UpgradeableStat
+{
+    public string name;
+    public float baseValue;
+    public int level = 1;
+    public float multiplier = 0.3f;
+
+    public float GetCurrentValue()
+    {
+        return baseValue * (1 + multiplier * (level - 1));
+    }
+
+    public void Upgrade()
+    {
+        level++;
+    }
+}
 
 public class Engine : MonoBehaviour
 {
     private Transport transport;
 
-    [SerializeField] public float fuel;
+    [NonSerialized] public float acceleration;
+    [NonSerialized] public float maxSpeed;
+
+    public float baseAcceleration { get; private set; } = 5f;
+    public float baseMaxSpeed { get; private set; } = 10f;
     private float fuelRate = 0.1f;
+    [SerializeField] public float brakeForce = 5f;
+    [SerializeField] public float fuel;
+
+    [SerializeField] public UpgradeableStat speed = new UpgradeableStat { name = "Скорость", baseValue = 10f };
+    [SerializeField] public UpgradeableStat durability = new UpgradeableStat { name = "Прочность", baseValue = 100f };
+    [SerializeField] public UpgradeableStat fuelCapacity = new UpgradeableStat { name = "Размер бака", baseValue = 100f };
+
 
     void Awake()
     {
@@ -16,11 +47,15 @@ public class Engine : MonoBehaviour
 
     void Start()
     {
+        acceleration = baseAcceleration;
+
         fuel = 100f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        PrintStats();
+
         HandleTransportStatus();
 
         if (transport.CurrentState == TransportStatus.Damaged || transport.CurrentState == TransportStatus.Critical)
@@ -36,17 +71,43 @@ public class Engine : MonoBehaviour
         switch (transport.CurrentState)
         {
             case TransportStatus.Damaged:
-                transport.acceleration = transport.baseAcceleration * 0.5f;
-                transport.maxSpeed = transport.baseMaxSpeed * 0.5f;
+                acceleration = baseAcceleration * 0.5f;
+                maxSpeed = speed.GetCurrentValue() * 0.5f;
                 break;
             case TransportStatus.Critical:
-                transport.acceleration = 0;
+                acceleration = 0;
                 break;
             default:
-                transport.maxSpeed = transport.baseMaxSpeed;
-                transport.acceleration = transport.baseAcceleration;
+                maxSpeed = speed.GetCurrentValue();
+                acceleration = baseAcceleration;
                 break;
         }
+    }
+
+    public void UpgradeStat(string statName)
+    {
+        switch (statName)
+        {
+            case "speed":
+                speed.Upgrade();
+                break;
+            case "durability":
+                durability.Upgrade();
+                break;
+            case "fuelCapacity":
+                fuelCapacity.Upgrade();
+                break;
+            default :
+                Debug.LogWarning("Неизвестная характеристика: " + statName);
+                break;
+        }
+    }
+
+    public void PrintStats()
+    {
+        Debug.Log($"Скорость: {speed.GetCurrentValue()}, Уровень: {speed.level}");
+        Debug.Log($"Прочность: {durability.GetCurrentValue()}, Уровень: {durability.level}");
+        Debug.Log($"Объем бака: {fuelCapacity.GetCurrentValue()}, Уровень: {fuelCapacity.level}");
     }
     
     public void AddFuel(float value)
