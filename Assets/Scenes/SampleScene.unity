@@ -4232,7 +4232,6 @@ GameObject:
   - component: {fileID: 1429492232}
   - component: {fileID: 1429492229}
   - component: {fileID: 1429492236}
-  - component: {fileID: 1429492235}
   - component: {fileID: 1429492234}
   - component: {fileID: 1429492237}
   m_Layer: 2
@@ -4254,8 +4253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009a7fce7b591604194ba2a64d66b74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0
-  maxSpeed: 0
 --- !u!212 &1429492232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4347,19 +4344,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.25, y: 0.99, z: 0.2}
   m_Center: {x: 0, y: 0, z: 6.0845196e-10}
---- !u!114 &1429492235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429492228}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b047f5c2b987b2e4eb8732ce467bbb13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuel: 0
 --- !u!114 &1429492236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4689,9 +4673,10 @@ GameObject:
   - component: {fileID: 1573642508}
   - component: {fileID: 1573642510}
   - component: {fileID: 1573642509}
+  - component: {fileID: 1573642511}
   m_Layer: 0
   m_Name: Engine
-  m_TagString: Untagged
+  m_TagString: Engine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4730,7 +4715,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.72, y: 9.6, z: 0.2}
+  m_Size: {x: 9.72, y: 9.6, z: 5.14}
   m_Center: {x: 0.0000009536743, y: 0.0000019073486, z: 0}
 --- !u!212 &1573642510
 SpriteRenderer:
@@ -4784,6 +4769,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1573642511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573642507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b047f5c2b987b2e4eb8732ce467bbb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brakeForce: 5
+  fuel: 0
+  speed:
+    name: "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C"
+    baseValue: 10
+    level: 1
+    multiplier: 0.3
+  durability:
+    name: "\u041F\u0440\u043E\u0447\u043D\u043E\u0441\u0442\u044C"
+    baseValue: 100
+    level: 1
+    multiplier: 0.3
+  fuelCapacity:
+    name: "\u0420\u0430\u0437\u043C\u0435\u0440 \u0431\u0430\u043A\u0430"
+    baseValue: 100
+    level: 1
+    multiplier: 0.3
 --- !u!1 &1649177006
 GameObject:
   m_ObjectHideFlags: 0

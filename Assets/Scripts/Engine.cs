@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 [System.Serializable]
@@ -25,13 +26,17 @@ public class UpgradeableStat
 public class Engine : MonoBehaviour
 {
     private Transport transport;
+    private Enter enter;
+    private Inventory inventory;
 
     [NonSerialized] public float acceleration;
     [NonSerialized] public float maxSpeed;
 
+    private bool upgradeReady = false;
     public float baseAcceleration { get; private set; } = 5f;
     public float baseMaxSpeed { get; private set; } = 10f;
     private float fuelRate = 0.1f;
+
     [SerializeField] public float brakeForce = 5f;
     [SerializeField] public float fuel;
 
@@ -42,20 +47,21 @@ public class Engine : MonoBehaviour
 
     void Awake()
     {
-        transport = GetComponent<Transport>();
+        transport = FindAnyObjectByType<Transport>();
+        enter = FindAnyObjectByType<Enter>();
+        inventory = FindAnyObjectByType<Inventory>();
     }
 
     void Start()
     {
         acceleration = baseAcceleration;
+        maxSpeed = speed.GetCurrentValue();
 
-        fuel = 100f;
+        fuel = fuelCapacity.GetCurrentValue();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        PrintStats();
-
         HandleTransportStatus();
 
         if (transport.CurrentState == TransportStatus.Damaged || transport.CurrentState == TransportStatus.Critical)
@@ -119,6 +125,7 @@ public class Engine : MonoBehaviour
         }
 
         fuel += value;
+        fuel = math.clamp(fuel, 0, fuelCapacity.GetCurrentValue());
     }
 
     public void ReduceFuel()
@@ -141,9 +148,37 @@ public class Engine : MonoBehaviour
 
     private void HandleDebugInput()
     {
-        if (Input.GetKeyDown(KeyCode.F)) // временная заправка
+        HandleUpdate(KeyCode.F, 1, 1, () => AddFuel(100));
+        HandleUpdate(KeyCode.R, 2, 1, () => transport.Repair(50));
+        HandleUpdate(KeyCode.Alpha1, 3, 1, () => speed.Upgrade());
+        HandleUpdate(KeyCode.Alpha2, 3, 1, () => durability.Upgrade());
+        HandleUpdate(KeyCode.Alpha3, 3, 1, () => fuelCapacity.Upgrade());
+    }
+
+    private void HandleUpdate(KeyCode Key, int itemId, int itemCount, Action nameAction)
+    {
+        if (Input.GetKeyDown(Key) && upgradeReady && enter.inTransport)
         {
-            AddFuel(10);
+            if (inventory.DeleteItemById(itemId, itemCount))
+            {
+                nameAction.Invoke();
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            upgradeReady = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            upgradeReady = false;
         }
     }
 }

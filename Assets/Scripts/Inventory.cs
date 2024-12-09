@@ -59,7 +59,6 @@ public class Inventory : MonoBehaviour
 
     public bool DeleteItemById(int id, int quantity)
     {
-        Debug.Log("dskfjsd");
         InventoryItem itemToDelete = itemDatabase.GetItemById(id);
 
         if (itemToDelete == null)
@@ -81,6 +80,7 @@ public class Inventory : MonoBehaviour
                 }
                 else
                 {
+                    Debug.LogWarning("Количество предметов с ID " + id + " равно нулю!");
                     return false;
                 }
             }

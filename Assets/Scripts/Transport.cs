@@ -24,7 +24,7 @@ public class Transport : MonoBehaviour
     private void Awake()
     {
         healthSystem = GetComponent<HealthSystem>();
-        engine = GetComponent<Engine>();
+        engine = FindAnyObjectByType<Engine>();
         transportRigidBody = GetComponent<Rigidbody>();
     }
 
@@ -109,7 +109,7 @@ public class Transport : MonoBehaviour
 
     public void Repair(float value)
     {
-        healthSystem.Rapair(value);
+        healthSystem.Repair(value);
     }
 
     public void ToggleEngine()
@@ -119,10 +119,10 @@ public class Transport : MonoBehaviour
 
     private void HandleDebugInput()
     {
-        if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
-        {
-            Repair(10);
-        }
+        //if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
+        //{
+        //    Repair(10);
+        //}
         if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
         {
             GetDamage(10);

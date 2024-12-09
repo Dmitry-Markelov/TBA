@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - Gaz
   - Loot
+  - Engine
   layers:
   - Default
   - TransparentFX
