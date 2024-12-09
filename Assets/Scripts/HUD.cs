@@ -10,11 +10,13 @@ public class HUD : MonoBehaviour
     private HealthSystem healthSystem;
     private Engine engine;
     private Player player;
+    private Score score;
 
     public Text pHpText;
     public Text tHpText;
     public Text stateText;
     public Text fuelText;
+    public Text scoreText;
 
     void Awake()
     {
@@ -22,6 +24,7 @@ public class HUD : MonoBehaviour
         healthSystem = FindObjectOfType<HealthSystem>();
         engine = FindObjectOfType<Engine>();
         player = FindObjectOfType<Player>();
+        score = FindObjectOfType<Score>();
     }
 
     void Update()
@@ -35,5 +38,6 @@ public class HUD : MonoBehaviour
         tHpText.text = "HP: " + math.floor(healthSystem.currentHealth);
         stateText.text = "State: " + transport.CurrentState;
         fuelText.text = "Fuel: " + math.floor(engine.fuel);
+        scoreText.text = "" + math.floor(score.score);
     }
 }
