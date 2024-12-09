@@ -17,6 +17,7 @@ public class HUD : MonoBehaviour
     public Text stateText;
     public Text fuelText;
     public Text scoreText;
+    public Text hScoreText;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class HUD : MonoBehaviour
         tHpText.text = "HP: " + math.floor(healthSystem.currentHealth);
         stateText.text = "State: " + transport.CurrentState;
         fuelText.text = "Fuel: " + math.floor(engine.fuel);
-        scoreText.text = "" + math.floor(score.score);
+        scoreText.text = "" + math.floor(score.currentScore);
+        hScoreText.text = "" + math.floor(score.hightScore);
     }
 }

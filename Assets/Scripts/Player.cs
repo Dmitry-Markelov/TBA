@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     private Transport transport;
     private Enter enter;
+    private Score score;
 
     [SerializeField] public float moveSpeed = 15f;
     private float gravity = -9.8f;
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     {
         transport = FindObjectOfType<Transport>();
         enter = FindObjectOfType<Enter>();
+        score = FindObjectOfType<Score>();
     }
 
     private void Start()
@@ -137,6 +139,11 @@ public class Player : MonoBehaviour
 
     private void RestartGame()
     {
+        if (score.currentScore >= score.hightScore)
+        {
+            PlayerPrefs.SetFloat("HightScore", score.hightScore);
+            PlayerPrefs.Save();
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

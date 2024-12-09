@@ -39,7 +39,7 @@ public class Transport : MonoBehaviour
         maxSpeed = baseMaxSpeed;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdateTransportState();
 
