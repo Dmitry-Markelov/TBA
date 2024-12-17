@@ -19,7 +19,10 @@ public class Arm : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.E) && enter.inTransport)
         {
-            transport.ToggleMove();
+            if (!transport.inObstacle)
+            {
+                transport.ToggleMove();
+            }
         }
     }
 

@@ -11,15 +11,11 @@ public class ZoneController : MonoBehaviour
     [SerializeField] float folowSpeed = 2f;
     private bool playerInZone = false;
     private bool transportInZone = false;
-    private float length;
-
 
     void Start()
     {
         player = FindObjectOfType<Player>();
         transport = FindObjectOfType<Transport>();
-
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
     void FixedUpdate()
@@ -37,6 +33,11 @@ public class ZoneController : MonoBehaviour
         if (player.transform.position.x < transform.position.x)
         {
             player.GetDamage(zoneDamage * 10);
+        }
+
+        if (transport.transform.position.x < transform.position.x)
+        {
+            transport.GetDamage(zoneDamage * 10);
         }
 
         if (player.transform.position.x - transform.position.x >= 250)

@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class HotbarSlot : MonoBehaviour
 {
-    public Text itemCount; // Текст для отображения количества
+    public Text itemCount;
 
     public void UpdateSlot(int count)
     {
         if (count > 0)
         {
-            itemCount.text = count.ToString(); // Отображаем количество
+            itemCount.text = count.ToString();
         }
         else
         {
-            itemCount.text = ""; // Если количество 0, очищаем текст
+            itemCount.text = "";
         }
     }
 }

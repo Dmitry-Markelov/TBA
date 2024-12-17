@@ -25,6 +25,11 @@ public class Inventory : MonoBehaviour
         hotbar = FindAnyObjectByType<Hotbar>();
     }
 
+    public InventoryItem GetItemByID(int id)
+    {
+        return itemDatabase.GetItemById(id);
+    }
+
     public bool AddItemById(int id, int quantity)
     {
         InventoryItem itemToAdd = itemDatabase.GetItemById(id);

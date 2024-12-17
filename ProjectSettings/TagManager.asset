@@ -11,6 +11,8 @@ TagManager:
   - Gaz
   - Loot
   - Engine
+  - Obstacle
+  - Storm
   layers:
   - Default
   - TransparentFX

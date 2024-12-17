@@ -25,3 +25,9 @@ MonoBehaviour:
   - id: 4
     name: Diamonds
     maxStack: 3
+  - id: 4
+    name: Diamonds
+    maxStack: 3
+  - id: 5
+    name: saw
+    maxStack: 3

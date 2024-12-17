@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    private Transport transport;
     private Enter enter;
     private Score score;
+    private PlayerInteraction playerinteraction;
 
     [SerializeField] public float moveSpeed = 15f;
     private float gravity = -9.8f;
@@ -21,12 +21,13 @@ public class Player : MonoBehaviour
 
     private bool flipRight = true;
     private bool isGrounded = true;
+    public bool inStorm = false;
     
     void Awake()
     {
-        transport = FindObjectOfType<Transport>();
         enter = FindObjectOfType<Enter>();
         score = FindObjectOfType<Score>();
+        playerinteraction = FindObjectOfType<PlayerInteraction>();
     }
 
     private void Start()
@@ -60,6 +61,8 @@ public class Player : MonoBehaviour
         }
 
         GroundCheck();
+        
+        moveSpeed = (inStorm) ? 7f : 15f;
     }
 
     private void JumpPlayer()

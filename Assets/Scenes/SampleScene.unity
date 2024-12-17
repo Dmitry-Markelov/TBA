@@ -2254,6 +2254,9 @@ MonoBehaviour:
   lootPrefabs:
   - {fileID: 4280664199362803651, guid: 9736e1e8a8fa3934bad4ea38a0a104cf, type: 3}
   - {fileID: 4280664199362803651, guid: ae51d4355887dc547bc71c0d727bc0fa, type: 3}
+  - {fileID: 4280664199362803651, guid: da151552386f005409162cb04fa7b601, type: 3}
+  - {fileID: 4280664199362803651, guid: db2ed1ce0646da4478c8137d7adc0f93, type: 3}
+  - {fileID: 4280664199362803651, guid: db5687bc0ef6603488d49cb523bde098, type: 3}
   player: {fileID: 948020754}
   spawnDistance: 50
   spawnInterval: 10
@@ -2656,6 +2659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8654a3a24851dfa48b4eec889454fa0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inStorm: 0
 --- !u!114 &948020758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4253,6 +4257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009a7fce7b591604194ba2a64d66b74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inObstacle: 0
 --- !u!212 &1429492232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5609,6 +5614,16 @@ MonoBehaviour:
       name: diamonds
       maxStack: 3
     quantity: 0
+  - InventoryItem:
+      id: 5
+      name: saw
+      maxStack: 3
+    quantity: 2
+  - InventoryItem:
+      id: 6
+      name: pikaxe
+      maxStack: 3
+    quantity: 2
   itemDatabase: {fileID: 11400000, guid: bf4a273d4c40cf547bb7ed9cd4e3cc56, type: 2}
 --- !u!114 &1883085721
 MonoBehaviour:

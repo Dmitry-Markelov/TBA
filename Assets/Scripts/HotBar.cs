@@ -17,6 +17,11 @@ public class Hotbar : MonoBehaviour
         inventory = FindAnyObjectByType<Inventory>();
     }
 
+    private void Start()
+    {
+        UpdateInventory();
+    }
+
     public void UpdateInventory()
     {
         List<(InventoryItem item, int quantity)> items = inventory.GetInventoryItems();

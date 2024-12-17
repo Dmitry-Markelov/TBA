@@ -18,6 +18,7 @@ public class Transport : MonoBehaviour
     private Engine engine;
 
     public bool isMoving { get; private set; } = false;
+    public bool inObstacle { get; set; } = false;
 
     public TransportStatus CurrentState { get; private set; } = TransportStatus.Working;
     
@@ -41,7 +42,7 @@ public class Transport : MonoBehaviour
             Brake();
         }
 
-        HandleDebugInput(); // переделать под InputSystem
+        HandleDebugInput();
     }
 
     private void UpdateTransportState()
@@ -75,15 +76,18 @@ public class Transport : MonoBehaviour
 
     private void Move()
     {
-        if (transportRigidBody.velocity.x < engine.speed.GetCurrentValue())
+        if(!inObstacle)
         {
-            Vector3 newForce = transform.right * engine.acceleration;
-            transportRigidBody.AddForce(newForce, ForceMode.Force);
-        }
+            if (transportRigidBody.velocity.x < engine.speed.GetCurrentValue())
+            {
+                Vector3 newForce = transform.right * engine.acceleration;
+                transportRigidBody.AddForce(newForce, ForceMode.Force);
+            }
 
-        if (transportRigidBody.velocity.x > engine.speed.GetCurrentValue())
-        {
-            Brake();
+            if (transportRigidBody.velocity.x > engine.speed.GetCurrentValue())
+            {
+                Brake();
+            }
         }
     }
 
@@ -95,6 +99,15 @@ public class Transport : MonoBehaviour
             transportRigidBody.AddForce(brakeForceVector, ForceMode.Force);
         }
         else transportRigidBody.velocity = Vector3.zero;
+    }
+
+    private void HitObstacle()
+    {
+        isMoving = false;
+        inObstacle = true;
+
+        healthSystem.GetDamage(35);
+        transportRigidBody.velocity = Vector3.zero;
     }
 
     public void ToggleMove()
@@ -112,20 +125,19 @@ public class Transport : MonoBehaviour
         healthSystem.Repair(value);
     }
 
-    public void ToggleEngine()
-    {
-
-    }
-
     private void HandleDebugInput()
     {
-        //if (Input.GetKeyDown(KeyCode.R)) // временный ремонт
-        //{
-        //    Repair(10);
-        //}
         if (Input.GetKeyDown(KeyCode.T)) // временный дамаг
         {
             GetDamage(10);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle") && !other.CompareTag("Player"))
+        {
+            HitObstacle();
         }
     }
 }
