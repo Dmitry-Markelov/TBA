@@ -5,6 +5,7 @@ public class LootSpawner : MonoBehaviour
 
     public GameObject[] lootPrefabs;
     public Transform player;
+
     public float minSpawnDistance = 100f;
     public float spawnInterval = 10f;
 
@@ -30,10 +31,10 @@ public class LootSpawner : MonoBehaviour
     void SpawnLoot()
     {
         int randomIndex = Random.Range(0, lootPrefabs.Length);
-
+        
         Vector3 spawnPos = new Vector3(
-            player.position.x + Random.Range(20f, 50f), 
-            5.2f, 
+            player.position.x + Random.Range(20f, 50f),
+            5.2f,
             0);
 
         Instantiate(lootPrefabs[randomIndex], spawnPos, Quaternion.identity);

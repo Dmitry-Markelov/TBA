@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Mathematics;
@@ -35,11 +33,11 @@ public class HUD : MonoBehaviour
 
     private void UpdateHUD()
     {
-        pHpText.text = "HP: " + math.floor(player.currentHealth);
-        tHpText.text = "HP: " + math.floor(healthSystem.currentHealth);
-        stateText.text = "State: " + transport.CurrentState;
-        fuelText.text = "Fuel: " + math.floor(engine.fuel);
-        scoreText.text = "" + math.floor(score.currentScore);
-        hScoreText.text = "" + math.floor(score.hightScore);
+        pHpText.text = $"HP: {math.floor(player.currentHealth)}";
+        tHpText.text = $"HP: {math.floor(healthSystem.currentHealth)}";
+        stateText.text = $"State: {transport.CurrentState}";
+        fuelText.text = $"Fuel: {math.floor(engine.fuel)}";
+        scoreText.text = $"{math.floor(score.currentScore)}";
+        hScoreText.text = $"{math.floor(score.hightScore)}";
     }
 }

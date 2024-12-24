@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static Inventory;
 
 public class Hotbar : MonoBehaviour
 {
@@ -33,16 +32,16 @@ public class Hotbar : MonoBehaviour
             switch (item.id)
             {
                 case 1:
-                    fuelText.text = quantity.ToString() + "/5";
+                    fuelText.text = $"{quantity}/{item.maxStack}";
                     break;
                 case 2:
-                    repairText.text = quantity.ToString() + "/5";
+                    repairText.text = $"{quantity}/{item.maxStack}";
                     break;
                 case 3:
-                    upgradeText.text = quantity.ToString() + "/2";
+                    upgradeText.text = $"{quantity}/{item.maxStack}";
                     break;
                 case 4:
-                    diamondsText.text = quantity.ToString() + "";
+                    diamondsText.text = quantity.ToString();
                     break;
                 case 5:
                     sawText.text = quantity.ToString();

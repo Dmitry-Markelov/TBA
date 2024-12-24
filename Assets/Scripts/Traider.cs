@@ -81,7 +81,7 @@ public class Traider : MonoBehaviour
 
         foreach (var traiderItem in availableItems)
         {
-            if (traiderItem.id == itemId)
+            if (traiderItem.id == itemId && traiderItem.count > 0)
             {
                 int? playerMoney = inventory.GetQuanityItemById(4);
                 if (playerMoney != null && playerMoney >= traiderItem.cost)

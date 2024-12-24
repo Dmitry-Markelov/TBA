@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ZoneController : MonoBehaviour
 {
     private Player player;
     private Transport transport;
+
     [SerializeField] float zoneDamage = 0.1f;
     [SerializeField] float folowSpeed = 2f;
+
     private bool playerInZone = false;
     private bool transportInZone = false;
 

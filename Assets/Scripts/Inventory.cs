@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour
     }
 
     public List<InventorySlot> slots = new List<InventorySlot>();
+    
     public ItemDatabase itemDatabase;
     private Hotbar hotbar;
 
@@ -59,8 +60,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        hotbar.UpdateInventory();
-        return true;
+        return false;
     }
 
     public bool DeleteItemById(int id, int quantity)
@@ -92,8 +92,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        hotbar.UpdateInventory();
-        return true;
+        return false;
     }
 
     public List<(InventoryItem InventoryItem, int quantity)> GetInventoryItems()

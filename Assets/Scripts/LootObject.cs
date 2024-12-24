@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LootObject : MonoBehaviour
@@ -13,9 +11,9 @@ public class LootObject : MonoBehaviour
 
     public enum LootType { 
         Cave, AbandonedHouse,
-        Traider,
         FallenTree, Rock,
-        Storm
+        Storm,
+        Traider
     }
     public LootType lootType;
 
@@ -34,12 +32,12 @@ public class LootObject : MonoBehaviour
             if (lootTable != null)
             {
                 LootItem loot = lootTable.GetRandomLoot();
-
                 int count = rnd.Next(1, 3);
+
                 bool isAdded = inventory.AddItemById(loot.id, count);
                 if (isAdded)
                 {
-                    Debug.Log("Вы получили: " + loot.itemName);
+                    Debug.Log($"Вы получили: {loot.itemName} в количестве: {count}");
                     Destroy(gameObject);
                 }
                 else

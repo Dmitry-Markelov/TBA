@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +30,7 @@ public class TraiderUI : MonoBehaviour
         {
             if (item.id > 0 && item.id <= slots.Length && slots[item.id - 1] != null)
             {
-                slots[item.id - 1].text = $"Cost: {item.cost}";
+                slots[item.id - 1].text = $"Cost: {item.cost} Count: {item.count}";
             }
         }
     }
