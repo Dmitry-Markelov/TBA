@@ -1,16 +1,19 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class LootObject : MonoBehaviour
 {
     private Inventory inventory;
     private Transport transport;
+    private Traider traider;
+
+    System.Random rnd = new System.Random();
 
     public enum LootType { 
         Cave, AbandonedHouse,
-        Trader,
+        Traider,
         FallenTree, Rock,
         Storm
     }
@@ -20,6 +23,7 @@ public class LootObject : MonoBehaviour
     {
         inventory = FindAnyObjectByType<Inventory>();
         transport = FindAnyObjectByType<Transport>();
+        traider = FindAnyObjectByType<Traider>();
     }
 
     public void Interact()
@@ -31,10 +35,12 @@ public class LootObject : MonoBehaviour
             {
                 LootItem loot = lootTable.GetRandomLoot();
 
-                bool isAdded = inventory.AddItemById(loot.id, 1);
+                int count = rnd.Next(1, 3);
+                bool isAdded = inventory.AddItemById(loot.id, count);
                 if (isAdded)
                 {
                     Debug.Log("Вы получили: " + loot.itemName);
+                    Destroy(gameObject);
                 }
                 else
                 {
@@ -65,11 +71,23 @@ public class LootObject : MonoBehaviour
             }
             return;
         }
-        else if (lootType == LootType.Trader)
+        else if (lootType == LootType.Traider)
         {
-            //логика торговли
+            traider.GenerateItemsForSale();
+            traider.ShowUI();
+
+            StartCoroutine(WaitForEscape());
+        }
+    }
+
+    private IEnumerator WaitForEscape()
+    {
+        while (!Input.GetKeyDown(KeyCode.Escape))
+        {
+            yield return null;
         }
 
+        traider.HideUI();
         Destroy(gameObject);
     }
 }

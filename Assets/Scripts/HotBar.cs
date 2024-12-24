@@ -11,6 +11,8 @@ public class Hotbar : MonoBehaviour
     public Text repairText;
     public Text upgradeText;
     public Text diamondsText;
+    public Text sawText;
+    public Text pickAxeText;
 
     private void Awake()
     {
@@ -40,7 +42,13 @@ public class Hotbar : MonoBehaviour
                     upgradeText.text = quantity.ToString() + "/2";
                     break;
                 case 4:
-                    diamondsText.text = quantity.ToString() + "/3";
+                    diamondsText.text = quantity.ToString() + "";
+                    break;
+                case 5:
+                    sawText.text = quantity.ToString();
+                    break;
+                case 6:
+                    pickAxeText.text = quantity.ToString();
                     break;
             }
         }

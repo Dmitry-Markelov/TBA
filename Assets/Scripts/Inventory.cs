@@ -44,7 +44,8 @@ public class Inventory : MonoBehaviour
         {
             if (slot.InventoryItem != null && slot.InventoryItem.id == id)
             {
-                if (slot.quantity + quantity <= itemToAdd.maxStack)
+                int availiableSpace = itemToAdd.maxStack - slot.quantity;
+                if (quantity <= availiableSpace)
                 {
                     slot.quantity += quantity;
                     hotbar.UpdateInventory();
@@ -108,5 +109,22 @@ public class Inventory : MonoBehaviour
         }
 
         return itemList;
+    }
+
+    public int? GetQuanityItemById(int id)
+    {
+        InventoryItem item = GetItemByID(id);
+        if (item != null)
+        {
+            foreach (var slot in slots)
+            {
+                if (slot.InventoryItem.id == id)
+                {
+                    return slot.quantity;
+                }
+            }
+        }
+
+        return null;
     }
 }

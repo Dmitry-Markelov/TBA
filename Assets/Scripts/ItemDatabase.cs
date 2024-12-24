@@ -10,4 +10,9 @@ public class ItemDatabase : ScriptableObject
     {
         return items.Find(item => item.id == id);
     }
+
+    public int GetItemsCount()
+    {
+        return items.Count;
+    }
 }

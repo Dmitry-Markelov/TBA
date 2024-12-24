@@ -23,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.CompareTag("Loot") || other.CompareTag("Obstacle")) && !other.CompareTag("Transport"))
+        if ((other.CompareTag("Loot") || other.CompareTag("Obstacle") || other.CompareTag("Traider")) && !other.CompareTag("Transport"))
         {
             currentLootObject = other.GetComponent<LootObject>();
         }
@@ -36,6 +36,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if ((other.CompareTag("Loot") || other.CompareTag("Obstacle") || other.CompareTag("Traider")) && !other.CompareTag("Transport"))
+        {
+            currentLootObject = null;
+        }
+
         if (other.CompareTag("Storm"))
         {
             player.inStorm = false;

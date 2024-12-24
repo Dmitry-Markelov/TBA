@@ -24,10 +24,10 @@ MonoBehaviour:
     maxStack: 2
   - id: 4
     name: Diamonds
-    maxStack: 3
-  - id: 4
-    name: Diamonds
-    maxStack: 3
+    maxStack: 99
   - id: 5
     name: saw
+    maxStack: 3
+  - id: 6
+    name: pikaxe
     maxStack: 3
